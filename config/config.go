@@ -6,9 +6,12 @@ import (
 )
 
 type Config struct {
-	Port         string
-	SecretKey    string
-	AccessKeyUrl string
+	Port      string
+	SecretKey string
+	// AccessKeyUrl parameter allows you to set url to get access key
+	// line must start with a slash character, also
+	// it must contain segments: /{eventID}/{clientID}/{keyName}
+	AccessKeyURL string
 }
 
 func NewConfig() *Config {
@@ -17,7 +20,7 @@ func NewConfig() *Config {
 
 	conf.SecretKey = readEnvOrDefault("SECRET_KEY", "some_secret_key")
 
-	conf.AccessKeyUrl = readEnvOrDefault("ACCESS_KEY_URL", "/access/{eventID}/{clientID}/{keyName}")
+	conf.AccessKeyURL = readEnvOrDefault("ACCESS_KEY_URL", "/access/{eventID}/{clientID}/{keyName}")
 
 	return &conf
 }
